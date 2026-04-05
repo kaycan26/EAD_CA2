@@ -1,0 +1,27 @@
+name: CA2 CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Backend
+        run: |
+          cd EAD_BE_CA2
+          mvn clean package -DskipTests
+
+      - name: Build Frontend
+        run: |
+          cd EAD_FE_CA2
+          npm install
+
+      - name: Build Docker Images
+        run: |
+          docker build -t ead-backend ./EAD_BE_CA2
+          docker build -t ead-frontend ./EAD_FE_CA2
