@@ -1,0 +1,18 @@
+services:
+  ead-backend:
+    build:
+      context: ../EAD_BE_CA2
+    container_name: ead-backend
+    ports:
+      - "8080:8080"
+
+  ead-frontend:
+    build:
+      context: ../EAD_FE_CA2
+    container_name: ead-frontend
+    ports:
+      - "22137:22137"
+    depends_on:
+      - ead-backend
+
+      
