@@ -1,10 +1,20 @@
 services:
+  mongodb:
+    image: mongo:7
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
   ead-backend:
     build:
       context: ../EAD_BE_CA2
     container_name: ead-backend
     ports:
       - "8080:8080"
+    depends_on:
+      - mongodb
 
   ead-frontend:
     build:
@@ -15,4 +25,6 @@ services:
     depends_on:
       - ead-backend
 
-      
+volumes:
+  mongodb_data:
+  
